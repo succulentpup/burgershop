@@ -6,12 +6,17 @@ const controls = [
     {label: 'Salad', type: 'salad'},
     {label: 'Bacon', type: 'bacon'},
     {label: 'Cheese', type: 'cheese'},
-    {label: 'Mean', type: 'meat'},
+    {label: 'Meat', type: 'meat'},
 ];
 const BurgerControls = props => (
     <div className={classes.BuildControls}>
         {controls.map(ctrl => (
-            <BurgerControl key ={ctrl.label} label={ctrl.label}/>
+            <BurgerControl
+                key ={ctrl.label}
+                label={ctrl.label}
+                added={()=>props.addedIngredients(ctrl.type)}
+                removed={()=>props.removedIngredients(ctrl.type)}
+            />
         ))}
     </div>
 );
