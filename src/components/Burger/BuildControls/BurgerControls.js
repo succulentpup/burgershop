@@ -16,6 +16,7 @@ const BurgerControls = props => (
                 label={ctrl.label}
                 added={()=>props.addedIngredients(ctrl.type)}
                 removed={()=>props.removedIngredients(ctrl.type)}
+                disable={props.disable[ctrl.type]}
             />
         ))}
     </div>
