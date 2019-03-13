@@ -36,7 +36,7 @@ class BurgerBuilder extends Component {
         updatedPrice = updatedPrice > getBaseBurgerPrice() ? updatedPrice : getBaseBurgerPrice();
         this.setState({ingredients: updatedIngredients, totalPrice: updatedPrice});
     };
-
+    getPurchasableStatus = () => this.state.totalPrice > getBaseBurgerPrice();
     getDisabledInfo = () => {
         const {...ingredients} = this.state.ingredients;
         for(let key in ingredients){
@@ -53,6 +53,7 @@ class BurgerBuilder extends Component {
                     removedIngredients={this.removeIngredientHandler}
                     disable={this.getDisabledInfo()}
                     totalPrice={this.state.totalPrice}
+                    purchasable={this.getPurchasableStatus()}
                 />
             </Hoc>
         );
