@@ -8,8 +8,8 @@ const controls = [
     {label: 'Cheese', type: 'cheese'},
     {label: 'Meat', type: 'meat'},
 ];
-const BurgerControls = props => (
-    <div className={classes.BuildControls}>
+const BurgerControls = props => {
+    return (<div className={classes.BuildControls}>
         <p>Price: <strong>{props.totalPrice.toFixed(2)}</strong></p>
         {controls.map(ctrl => (
             <BurgerControl
@@ -20,7 +20,8 @@ const BurgerControls = props => (
                 disable={props.disable[ctrl.type]}
             />
         ))}
-    </div>
-);
+        <button className={classes.OrderButton} disabled={!props.purchasable}>ORDER</button>
+    </div>);
+};
 
 export default BurgerControls;

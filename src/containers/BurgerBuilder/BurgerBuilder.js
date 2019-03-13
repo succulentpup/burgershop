@@ -26,7 +26,7 @@ class BurgerBuilder extends Component {
         const updatedIngredients = {...this.state.ingredients};
         updatedIngredients[type] = this.state.ingredients[type] + 1;
         const updatedPrice = this.state.totalPrice + getIngredientsPriceList()[type];
-        this.setState({ingredients: updatedIngredients,totalPrice: updatedPrice});
+        this.setState({ingredients: updatedIngredients, totalPrice: updatedPrice});
     };
     removeIngredientHandler = type => {
         const updatedIngredients = {...this.state.ingredients};
@@ -39,11 +39,14 @@ class BurgerBuilder extends Component {
 
     getDisabledInfo = () => {
         const {...ingredients} = this.state.ingredients;
-        for(let key in ingredients){
+        for (let key in ingredients) {
             ingredients[key] = ingredients[key] < 1;
         }
         return ingredients;
     };
+
+    getPurchasable = () => this.state.totalPrice > getBaseBurgerPrice();
+
     render() {
         return (
             <Hoc>
@@ -53,6 +56,7 @@ class BurgerBuilder extends Component {
                     removedIngredients={this.removeIngredientHandler}
                     disable={this.getDisabledInfo()}
                     totalPrice={this.state.totalPrice}
+                    purchasable={this.getPurchasable()}
                 />
             </Hoc>
         );
