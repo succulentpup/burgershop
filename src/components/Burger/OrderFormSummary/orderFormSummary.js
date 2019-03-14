@@ -3,7 +3,6 @@ import Hoc from '../../../hoc/hoc';
 import Button from "../../UI/Button/Button";
 
 const OrderFormSummary = (props) => {
-    console.log(`ingredients: ${props.ingredients}`);
     const orderSummary = Object.keys(props.ingredients)
         .map(ikey => {
             return <li key={ikey}><span style={{textTransform: 'capitalize'}}>{ikey}:</span> {props.ingredients[ikey]}</li>
@@ -15,6 +14,7 @@ const OrderFormSummary = (props) => {
             <ul>
                 {orderSummary}
             </ul>
+            <p><strong>Price: {props.price.toFixed(2)}</strong></p>
             <p>Continue to checkout???</p>
             <Button btnType={'Danger'} clicked={props.cancelPurchase}>CANCELLED</Button>
             <Button btnType={'Success'} clicked={props.continuePurchase}>CONTINUE</Button>
