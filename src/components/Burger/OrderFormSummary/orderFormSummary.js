@@ -15,7 +15,7 @@ const OrderFormSummary = (props) => {
                 {orderSummary}
             </ul>
             <p><strong>Price: {props.price.toFixed(2)}</strong></p>
-            <p>Continue to checkout???</p>
+            <p>Continue to checkout?</p>
             <Button btnType={'Danger'} clicked={props.cancelPurchase}>CANCELLED</Button>
             <Button btnType={'Success'} clicked={props.continuePurchase}>CONTINUE</Button>
         </Hoc>
