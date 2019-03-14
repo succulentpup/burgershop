@@ -10,18 +10,19 @@ const controls = [
 ];
 const BurgerControls = props => {
     return (<div className={classes.BuildControls}>
-        <p>Price: <strong>{props.totalPrice.toFixed(2)}</strong></p>
-        {controls.map(ctrl => (
-            <BurgerControl
-                key ={ctrl.label}
-                label={ctrl.label}
-                added={()=>props.addedIngredients(ctrl.type)}
-                removed={()=>props.removedIngredients(ctrl.type)}
-                disable={props.disable[ctrl.type]}
-            />
-        ))}
-        <button className={classes.OrderButton} disabled={!props.purchasable}>ORDER</button>
-    </div>);
+            <p>Price: <strong>{props.totalPrice.toFixed(2)}</strong></p>
+            {controls.map(ctrl => (
+                <BurgerControl
+                    key={ctrl.label}
+                    label={ctrl.label}
+                    added={() => props.addedIngredients(ctrl.type)}
+                    removed={() => props.removedIngredients(ctrl.type)}
+                    disable={props.disable[ctrl.type]}
+                />
+            ))}
+            <button className={classes.OrderButton} disabled={!props.purchasable}>ORDER NOW</button>
+        </div>
+    );
 };
 
 export default BurgerControls;

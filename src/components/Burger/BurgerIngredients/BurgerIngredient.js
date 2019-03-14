@@ -15,7 +15,6 @@ class BurgerIngredient extends Component {
             , 'bacon': (<div className={classes.Bacon}></div>)
             , 'salad': (<div className={classes.Salad}></div>)
         };
-        console.log(`props type: ${this.props.type}`);
         return ingredientType[this.props.type];
     }
 }

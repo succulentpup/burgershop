@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import Hoc from '../../hoc/hoc';
 import Burger from '../../components/Burger/Burger';
 import BurgerControls from "../../components/Burger/BuildControls/BurgerControls";
+import DisabledInfoOfIngredients from '../../components/Utils/TransformFunctions/disabledInfoOfIngredients';
+import OrderFormSummary from '../../components/Utils/TransformFunctions/orderFormSummary';
+import Modal from "../../components/UI/Modal/Modal";
 
 const getIngredientsPriceList = () => ({
     salad: 0.5,
@@ -37,24 +40,20 @@ class BurgerBuilder extends Component {
         this.setState({ingredients: updatedIngredients, totalPrice: updatedPrice});
     };
 
-    getDisabledInfo = () => {
-        const {...ingredients} = this.state.ingredients;
-        for (let key in ingredients) {
-            ingredients[key] = ingredients[key] < 1;
-        }
-        return ingredients;
-    };
-
     getPurchasable = () => this.state.totalPrice > getBaseBurgerPrice();
-
+    getDisabledInfo = ingredients => DisabledInfoOfIngredients(ingredients);
+    getOrderFormSummary = ingredients => OrderFormSummary(ingredients);
     render() {
         return (
             <Hoc>
+                <Modal>
+                    {this.getOrderFormSummary(this.state.ingredients)}
+                </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BurgerControls
                     addedIngredients={this.addIngredientHandler}
                     removedIngredients={this.removeIngredientHandler}
-                    disable={this.getDisabledInfo()}
+                    disable={this.getDisabledInfo(this.state.ingredients)}
                     totalPrice={this.state.totalPrice}
                     purchasable={this.getPurchasable()}
                 />

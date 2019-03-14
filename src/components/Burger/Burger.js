@@ -3,7 +3,6 @@ import BurgerIngredient from "./BurgerIngredients/BurgerIngredient";
 import classes from './Burger.module.css';
 
 const burger = props => {
-    console.log(`${JSON.stringify(props.ingredients)}`);
     let ingKeys = Object.keys(props.ingredients)
         .map(ingKey => {
             return [...Array(props.ingredients[ingKey])]
