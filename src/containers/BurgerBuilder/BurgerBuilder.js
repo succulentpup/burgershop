@@ -3,7 +3,7 @@ import Hoc from '../../hoc/hoc';
 import Burger from '../../components/Burger/Burger';
 import BurgerControls from "../../components/Burger/BuildControls/BurgerControls";
 import DisabledInfoOfIngredients from '../../components/Utils/TransformFunctions/disabledInfoOfIngredients';
-import OrderFormSummary from '../../components/Utils/TransformFunctions/orderFormSummary';
+import OrderFormSummary from '../../components/Burger/OrderFormSummary/orderFormSummary';
 import Modal from "../../components/UI/Modal/Modal";
 
 const getIngredientsPriceList = () => ({
@@ -43,16 +43,18 @@ class BurgerBuilder extends Component {
 
     getPurchasable = () => this.state.totalPrice > getBaseBurgerPrice();
     getDisabledInfo = ingredients => DisabledInfoOfIngredients(ingredients);
-    getOrderFormSummary = ingredients => OrderFormSummary(ingredients);
     setPurchased = () => this.setState({purchased: true});
     cancelPurchase = () => this.setState({purchased: false});
+    continuePurchase = () => alert('Your order is success');
 
     render() {
         return (
             <Hoc>
                 <Modal show={this.state.purchased}
                        cancelOrder={this.cancelPurchase}>
-                    {this.getOrderFormSummary(this.state.ingredients)}
+                    <OrderFormSummary ingredients={this.state.ingredients}
+                                      cancelPurchase={this.cancelPurchase}
+                                      continuePurchase={this.continuePurchase}/>
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BurgerControls
