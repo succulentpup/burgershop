@@ -1,5 +1,5 @@
 import React from 'react';
-import Hoc from '../../../hoc/hoc';
+import Hoc from '../../../hoc/HocAux/hoc';
 import Button from "../../UI/Button/Button";
 
 const OrderFormSummary = (props) => {

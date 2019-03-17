@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Hoc from '../../hoc/hoc';
+import Hoc from '../../hoc/HocAux/hoc';
 import Burger from '../../components/Burger/Burger';
 import BurgerControls from "../../components/Burger/BuildControls/BurgerControls";
 import DisabledInfoOfIngredients from '../../components/Utils/TransformFunctions/disabledInfoOfIngredients';
