@@ -6,11 +6,15 @@ import Hoc from "../../../hoc/hoc";
 import Backdrop from "../../UI/Backdrop/Backdrop";
 
 
-const SideDrawer = () =>
-    (
+const SideDrawer = (props) =>
+{
+    const attachedClasses = props.open ?
+        [classes.SideDrawer,classes.Open] :
+        [classes.SideDrawer, classes.Close];
+    return (
         <Hoc>
-            <Backdrop show/>
-            <div className={classes.SideDrawer}>
+            <Backdrop show={props.open} clicked={props.close}/>
+            <div className={attachedClasses.join(' ')}>
                 <div className={classes.Logo}>
                     <Logo/>
                 </div>
@@ -18,6 +22,7 @@ const SideDrawer = () =>
             </div>
         </Hoc>
     );
+};
 
 
 export default SideDrawer;
