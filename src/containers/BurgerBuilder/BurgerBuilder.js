@@ -15,6 +15,20 @@ const getIngredientsPriceList = () => ({
     cheese: 0.5
 });
 
+const getEmptyBurgerState = () => {
+    return {
+        ingredients: {
+            salad: 0,
+            bacon: 0,
+            meat: 0,
+            cheese: 0
+        },
+        totalPrice: getBaseBurgerPrice(),
+        purchased: false,
+        loading: false
+    }
+};
+
 const getBaseBurgerPrice = () => 4;
 
 class BurgerBuilder extends Component {
@@ -61,34 +75,9 @@ class BurgerBuilder extends Component {
             }
         };
         this.setState({loading: true});
-        Axios.post('/order.json', order)
-            .then(() => {
-                this.setState({
-                    ingredients: {
-                        salad: 0,
-                        bacon: 0,
-                        meat: 0,
-                        cheese: 0
-                    },
-                    totalPrice: getBaseBurgerPrice(),
-                    purchased: false,
-                    loading: false
-                });
-            })
-            .catch(() => {
-                    this.setState({
-                        ingredients: {
-                            salad: 0,
-                            bacon: 0,
-                            meat: 0,
-                            cheese: 0
-                        },
-                        totalPrice: getBaseBurgerPrice(),
-                        purchased: false,
-                        loading: false
-                    })
-                }
-            );
+        Axios.post('/order.json',order)
+            .then(()=>this.setState(getEmptyBurgerState()))
+            .catch(()=>this.setState(getEmptyBurgerState()));
     };
 
     render() {
