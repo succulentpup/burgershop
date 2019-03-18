@@ -59,7 +59,19 @@ class BurgerBuilder extends Component {
             }
         };
         Axios.post('/order.json', order)
-            .then(res => console.log('res: ', res))
+            .then(() => {
+                this.setState({
+                    ingredients: {
+                        salad: 0,
+                        bacon: 0,
+                        meat: 0,
+                        cheese: 0
+                    },
+                    totalPrice: getBaseBurgerPrice(),
+                    purchased: false
+                });
+                console.log('updated state: ', this.state);
+            })
             .catch(err => console.log('err: ', err));
     };
 
