@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Axios from '../../axios-orders';
 import Hoc from '../../hoc/HocAux/hoc';
 import Burger from '../../components/Burger/Burger';
 import BurgerControls from "../../components/Burger/BuildControls/BurgerControls";
@@ -45,7 +46,22 @@ class BurgerBuilder extends Component {
     getDisabledInfo = ingredients => DisabledInfoOfIngredients(ingredients);
     setPurchased = () => this.setState({purchased: true});
     cancelPurchase = () => this.setState({purchased: false});
-    continuePurchase = () => alert('Your order is success');
+    continuePurchase = () => {
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,
+            deliveryType: 'fastest',
+            customer: {
+                name: 'Ganesh',
+                mob: '+91 91xxxxxx00',
+                email: 'test@test.dev',
+                country: 'India'
+            }
+        };
+        Axios.post('/order.json', order)
+            .then(res => console.log('res: ', res))
+            .catch(err => console.log('err: ', err));
+    };
 
     render() {
         return (
