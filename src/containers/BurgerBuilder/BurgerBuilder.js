@@ -6,6 +6,7 @@ import BurgerControls from "../../components/Burger/BuildControls/BurgerControls
 import DisabledInfoOfIngredients from '../../components/Utils/TransformFunctions/disabledInfoOfIngredients';
 import OrderFormSummary from '../../components/Burger/OrderFormSummary/orderFormSummary';
 import Modal from "../../components/UI/Modal/Modal";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 const getIngredientsPriceList = () => ({
     salad: 0.5,
@@ -25,7 +26,8 @@ class BurgerBuilder extends Component {
             cheese: 0
         },
         totalPrice: getBaseBurgerPrice(),
-        purchased: false
+        purchased: false,
+        loading: false
     };
     addIngredientHandler = type => {
         const updatedIngredients = {...this.state.ingredients};
@@ -58,6 +60,7 @@ class BurgerBuilder extends Component {
                 country: 'India'
             }
         };
+        this.setState({loading: true});
         Axios.post('/order.json', order)
             .then(() => {
                 this.setState({
@@ -68,22 +71,38 @@ class BurgerBuilder extends Component {
                         cheese: 0
                     },
                     totalPrice: getBaseBurgerPrice(),
-                    purchased: false
+                    purchased: false,
+                    loading: false
                 });
-                console.log('updated state: ', this.state);
             })
-            .catch(err => console.log('err: ', err));
+            .catch(() => {
+                    this.setState({
+                        ingredients: {
+                            salad: 0,
+                            bacon: 0,
+                            meat: 0,
+                            cheese: 0
+                        },
+                        totalPrice: getBaseBurgerPrice(),
+                        purchased: false,
+                        loading: false
+                    })
+                }
+            );
     };
 
     render() {
+        let orderSummary = <OrderFormSummary ingredients={this.state.ingredients}
+                                             cancelPurchase={this.cancelPurchase}
+                                             continuePurchase={this.continuePurchase}
+                                             price={this.state.totalPrice}/>;
+        if (this.state.loading) orderSummary = <Spinner/>;
+
         return (
             <Hoc>
                 <Modal show={this.state.purchased}
                        cancelOrder={this.cancelPurchase}>
-                    <OrderFormSummary ingredients={this.state.ingredients}
-                                      cancelPurchase={this.cancelPurchase}
-                                      continuePurchase={this.continuePurchase}
-                                      price={this.state.totalPrice}/>
+                    {orderSummary}
                 </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BurgerControls

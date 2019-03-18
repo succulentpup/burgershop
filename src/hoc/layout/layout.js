@@ -19,7 +19,6 @@ class Layout extends Component {
             <Hoc>
                 <Toolbar sideDrawerToggle={this.sideDrawerToggle}/>
                 <SideDrawer open={this.state.showSideDrawer} close={this.closeSideDrawerHandler}/>
-                <div>Toolbar, Sidebar, Backdrop</div>
                 <main className={classes.Content}>
                     {this.props.children}
                 </main>
