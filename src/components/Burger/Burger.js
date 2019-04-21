@@ -2,7 +2,7 @@ import React from 'react';
 import BurgerIngredient from "./BurgerIngredients/BurgerIngredient";
 import classes from './Burger.module.css';
 
-const burger = props => {
+const Burger = props => {
     let ingKeys = Object.keys(props.ingredients)
         .map(ingKey => {
             return [...Array(props.ingredients[ingKey])]
@@ -18,4 +18,4 @@ const burger = props => {
             <BurgerIngredient type='bread-bottom'/>
         </div>);
 };
-export default burger;
+export default Burger;
